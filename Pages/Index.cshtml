@@ -8,3 +8,16 @@
     <h1 class="display-4">Online Sudoku Solver Website !</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+<div class=" card-columns">
+    @foreach (var ad in Model.GameAds)
+    {
+    <div class="card">
+        <div class="card-img" style="background-image:url('@ad.Image'); "></div>
+        <div class="card-body">
+            <h5 class=" = card-title"> @ad.Title</h5>
+        </div>
+       
+    </div>
+    }
+</div>
