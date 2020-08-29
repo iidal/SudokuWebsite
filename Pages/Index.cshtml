@@ -1,23 +1,28 @@
 ﻿@page
+@using SudokuWebsite.Components;
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Online Sudoku Solver Website !</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Online Sudoku Solver</h1>
+    <!--- <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p> -->
 </div>
 
-<div class=" card-columns">
-    @foreach (var ad in Model.GameAds)
-    {
-    <div class="card">
-        <div class="card-img" style="background-image:url('@ad.Image'); "></div>
-        <div class="card-body">
-            <h5 class=" = card-title"> @ad.Title</h5>
-        </div>
-       
+<div class="text-center">
+
+    <div>
+        @for (int i = 1; i<10;i++) { <button class="game-cell">@i</button>}
     </div>
-    }
+
+  
+
+
 </div>
+
+@(await Html.RenderComponentAsync<ShowGameAds>(RenderMode.ServerPrerendered))
+<script src ="_framework/blazor.server.js"></script>
+
+
+

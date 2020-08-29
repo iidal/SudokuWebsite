@@ -20,7 +20,7 @@ for details on configuring this project to bundle and minify static web assets. 
 }
 
 .card-columns .card-img {
-    height: 330px;
+    height: 120px;
     vertical-align: bottom;
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
@@ -140,10 +140,10 @@ ul {
 }
 /*Backgrounds*/
 .bg-navbar {
-    background: -webkit-linear-gradient(110deg, #e9a8a6 60%, #252152 60%);
-    background: -o-linear-gradient(110deg, #e9a8a6 60%, #252152 60%);
-    background: -moz-linear-gradient(110deg, #e9a8a6 60%, #252152 60%);
-    background: linear-gradient(110deg, #e9a8a6 60%, #252152 60%);
+    background: -webkit-linear-gradient(100deg, #eca628 20%, #252152 80%);
+    background: -o-linear-gradient(100deg, #eca628 20%, #252152 80%);
+    background: -moz-linear-gradient(100deg, #eca628 20%, #252152 80%);
+    background: linear-gradient(100deg, #eca628 20%, #252152 80%);
 }
 
 .bg-footer {
@@ -151,4 +151,13 @@ ul {
     background: -o-linear-gradient(110deg, #252152 60%, #e9a8a6 60%);
     background: -moz-linear-gradient(110deg, #252152 60%, #e9a8a6 60%);
     background: linear-gradient(110deg, #252152 60%, #e9a8a6 60%);
+}
+
+/*
+game stuff
+*/
+.game-cell {
+    background-color: #A72608;
+    height: 50px;
+    width: 50px;
 }

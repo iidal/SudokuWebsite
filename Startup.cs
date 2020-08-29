@@ -25,6 +25,8 @@ namespace SudokuWebsite
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddServerSideBlazor();
+            services.AddControllers();
             services.AddTransient<JsonFileGameAdService>(); //adding game ads service to other services
         }
 
@@ -52,6 +54,8 @@ namespace SudokuWebsite
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+                endpoints.MapControllers();
+                endpoints.MapBlazorHub();
             });
         }
     }
