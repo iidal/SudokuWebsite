@@ -14,7 +14,20 @@
             <td class="board">
                 @foreach (BoardSlot bs in boardSlots)
                 {
-                    <button class="game-cell" @onclick="(e=>SelectSlot(bs))">@bs.Value.ToString() </button>
+                <div class="game-cell" @onclick="(e=>SelectSlot(bs))">
+                    @if (bs.Selected)
+                    {
+                        <p style="background-color:aqua ">@bs.Value.ToString()</p>
+                    }
+                    else
+                    {
+                        <p>@bs.Value.ToString()</p>
+                    }
+
+
+
+
+                </div>
                 }
             </td>
 
@@ -40,7 +53,7 @@
     BoardSlot[,] boardSlots = new BoardSlot[9, 9];
     BoardSlot currentSlot = new BoardSlot(999, new int[] { 99,99}, 99, true); //can be null on page init
     BoardSlot previousSlot;
- 
+
 
 
     protected override async Task OnInitializedAsync()
@@ -54,14 +67,19 @@
     void SelectSlot(BoardSlot bs)
     {
 
-        previousSlot = currentSlot;
+
+        currentSlot.Selected = false;
         currentSlot = bs;
+        currentSlot.Selected = true;
 
     }
 
     void ChangeSlotValue(int newVal)
     {
         board[currentSlot.Slot[0], currentSlot.Slot[1]] = newVal;
+        currentSlot.Value = newVal;
+
+        //boardSlots[currentSlot.Slot[0], currentSlot.Slot[1]] = currentSlot;
     }
 
 
