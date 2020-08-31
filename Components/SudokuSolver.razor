@@ -1,0 +1,103 @@
+﻿@using SudokuWebsite.Models
+@using SudokuWebsite.Services
+@using Microsoft.AspNetCore.Components.Web
+
+@inject BoardSolver BS;
+
+<h3>SudokuSolver</h3>
+
+<h5>@currentSlot.Slot[0].ToString() @currentSlot.Slot[1].ToString()</h5>
+
+<div class="text-center">
+    <table>
+        <tr>
+            <td class="board">
+                @foreach (BoardSlot bs in boardSlots)
+                {
+                    <button class="game-cell" @onclick="(e=>SelectSlot(bs))">@bs.Value.ToString() </button>
+                }
+            </td>
+
+            <td> @*actions*@
+                <div>
+                    <button class="numpad-cell" @onclick="(e => ChangeSlotValue(1))">1 </button>
+                    <button class="numpad-cell" @onclick="(e => ChangeSlotValue(2))">2 </button>
+                    <button class="numpad-cell" @onclick="(e => ChangeSlotValue(3))">3 </button>
+
+
+                </div>
+            </td>
+        </tr>
+
+
+    </table>
+
+</div>
+
+
+@code {
+
+    BoardSlot[,] boardSlots = new BoardSlot[9, 9];
+    BoardSlot currentSlot = new BoardSlot(999, new int[] { 99,99}, 99, true); //can be null on page init
+    BoardSlot previousSlot;
+ 
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        await InitializeBoard();
+    }
+
+
+
+    void SelectSlot(BoardSlot bs)
+    {
+
+        previousSlot = currentSlot;
+        currentSlot = bs;
+
+    }
+
+    void ChangeSlotValue(int newVal)
+    {
+        board[currentSlot.Slot[0], currentSlot.Slot[1]] = newVal;
+    }
+
+
+
+
+    Task InitializeBoard()
+    {
+        int a = 0;
+        for (int i = 0; i < 9; i++)
+        {
+            for (int j = 0; j < 9; j++)
+            {
+
+                boardSlots[i, j] = new BoardSlot(i + j, new int[] { j, i }, a, false);
+                a++;
+            }
+        }
+        return Task.CompletedTask;
+    }
+
+
+
+    public int[,] board = new int[9, 9] {
+     { 0,0,0,0,0,0,0,0,0 },
+     { 0,0,0,0,0,0,0,0,0 },
+     { 0,0,0,0,0,0,0,0,0 },
+     { 0,0,0,0,0,0,0,0,0 },
+     { 0,0,0,0,0,0,0,0,0 },
+     { 0,0,0,0,0,0,0,0,0 },
+     { 0,0,0,0,0,0,0,0,0 },
+     { 0,0,0,0,0,0,0,0,0 },
+     { 0,0,0,0,0,0,0,0,0 },
+
+            };
+
+
+
+}
+

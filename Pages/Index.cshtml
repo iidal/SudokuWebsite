@@ -10,16 +10,7 @@
     <!--- <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p> -->
 </div>
 
-<div class="text-center">
 
-    <div>
-        @for (int i = 1; i<10;i++) { <button class="game-cell">@i</button>}
-    </div>
-
-  
-
-
-</div>
 
 @(await Html.RenderComponentAsync<ShowGameAds>(RenderMode.ServerPrerendered))
 <script src ="_framework/blazor.server.js"></script>

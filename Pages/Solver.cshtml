@@ -1,0 +1,14 @@
+﻿@page
+@using SudokuWebsite.Components;
+@model SudokuWebsite.Pages.SolverModel
+@{
+}
+
+@*Actual page*@
+
+<div class="text-center">
+    <h1 class="display-4">Sudoku Solver</h1>
+</div>
+
+@(await Html.RenderComponentAsync<SudokuSolver>(RenderMode.ServerPrerendered))
+<script src="_framework/blazor.server.js"></script>

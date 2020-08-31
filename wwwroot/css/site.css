@@ -156,8 +156,44 @@ ul {
 /*
 game stuff
 */
+
 .game-cell {
-    background-color: #A72608;
-    height: 50px;
     width: 50px;
+    height: 50px;
+    color: #285943;
+    background-color: #D7FFF1;
+    border-color: #F6F4F3;
 }
+    .game-cell:hover {
+        color: #285943;
+        background-color: #AAFCB8;
+        border-color: #77AF9C;
+    }
+.game-cell-selected {
+    width: 50px;
+    height: 50px;
+    color: #D7FFF1;
+    background-color: #285943;
+    border-color: #77AF9C;
+}
+
+.numpad-cell {
+    width: 50px;
+    height: 50px;
+    color: #285943;
+    background-color: #AAFCB8;
+    border-color: #F6F4F3;
+}
+
+.numpad:hover {
+    color: #285943;
+    background-color: #8CD790;
+    border-color: #77AF9C;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+
+}
+
