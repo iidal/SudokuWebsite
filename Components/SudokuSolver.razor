@@ -14,28 +14,49 @@
             <td class="board">
                 @foreach (BoardSlot bs in boardSlots)
                 {
-                <div class="game-cell" @onclick="(e=>SelectSlot(bs))">
-                    @if (bs.Selected)
-                    {
-                        <p style="background-color:aqua ">@bs.Value.ToString()</p>
-                    }
-                    else
-                    {
-                        <p>@bs.Value.ToString()</p>
-                    }
+                    <div class="game-cell-base" @onclick="(e=>SelectSlot(bs))">
+                        @if (bs.Selected)
+                        {
+                            if (bs.Value != 0)
+                            {
+                                <p class="game-cell-selected">@bs.Value.ToString()</p>
+                            }
+                            else
+                            {
+                                <p class="game-cell-selected ">  </p>
+                            }
+                        }
+                        else
+                        {
+                            if (bs.Value != 0)
+                            {
+                                <p class="game-cell">@bs.Value.ToString()</p>
+                            }
+                            else
+                            {
+                                <p class="game-cell">  </p>
+                            }
+                        }
 
 
 
 
-                </div>
+                    </div>
                 }
             </td>
 
-            <td> @*actions*@
+            <td>
+                @*actions*@
                 <div>
                     <button class="numpad-cell" @onclick="(e => ChangeSlotValue(1))">1 </button>
                     <button class="numpad-cell" @onclick="(e => ChangeSlotValue(2))">2 </button>
                     <button class="numpad-cell" @onclick="(e => ChangeSlotValue(3))">3 </button>
+                    <button class="numpad-cell" @onclick="(e => ChangeSlotValue(4))">4 </button>
+                    <button class="numpad-cell" @onclick="(e => ChangeSlotValue(5))">5 </button>
+                    <button class="numpad-cell" @onclick="(e => ChangeSlotValue(6))">6 </button>
+                    <button class="numpad-cell" @onclick="(e => ChangeSlotValue(7))">7 </button>
+                    <button class="numpad-cell" @onclick="(e => ChangeSlotValue(8))">8 </button>
+                    <button class="numpad-cell" @onclick="(e => ChangeSlotValue(9))">9 </button>
 
 
                 </div>
@@ -51,7 +72,7 @@
 @code {
 
     BoardSlot[,] boardSlots = new BoardSlot[9, 9];
-    BoardSlot currentSlot = new BoardSlot(999, new int[] { 99,99}, 99, true); //can be null on page init
+    BoardSlot currentSlot = new BoardSlot(999, new int[] { 99, 99 }, 0, true); //can be null on page init
     BoardSlot previousSlot;
 
 
@@ -87,14 +108,14 @@
 
     Task InitializeBoard()
     {
-        int a = 0;
+
         for (int i = 0; i < 9; i++)
         {
             for (int j = 0; j < 9; j++)
             {
 
-                boardSlots[i, j] = new BoardSlot(i + j, new int[] { j, i }, a, false);
-                a++;
+                boardSlots[i, j] = new BoardSlot(i + j, new int[] { j, i }, 0, false);
+
             }
         }
         return Task.CompletedTask;
@@ -103,15 +124,15 @@
 
 
     public int[,] board = new int[9, 9] {
-     { 0,0,0,0,0,0,0,0,0 },
-     { 0,0,0,0,0,0,0,0,0 },
-     { 0,0,0,0,0,0,0,0,0 },
-     { 0,0,0,0,0,0,0,0,0 },
-     { 0,0,0,0,0,0,0,0,0 },
-     { 0,0,0,0,0,0,0,0,0 },
-     { 0,0,0,0,0,0,0,0,0 },
-     { 0,0,0,0,0,0,0,0,0 },
-     { 0,0,0,0,0,0,0,0,0 },
+{ 0,0,0,0,0,0,0,0,0 },
+{ 0,0,0,0,0,0,0,0,0 },
+{ 0,0,0,0,0,0,0,0,0 },
+{ 0,0,0,0,0,0,0,0,0 },
+{ 0,0,0,0,0,0,0,0,0 },
+{ 0,0,0,0,0,0,0,0,0 },
+{ 0,0,0,0,0,0,0,0,0 },
+{ 0,0,0,0,0,0,0,0,0 },
+{ 0,0,0,0,0,0,0,0,0 },
 
             };
 

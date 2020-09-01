@@ -157,13 +157,26 @@ ul {
 game stuff
 */
 
+.game-cell-base {
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    border: 3px solid green;
+
+ 
+}
 .game-cell {
     width: 50px;
     height: 50px;
     color: #285943;
     background-color: #D7FFF1;
     border-color: #F6F4F3;
+    font-size: 20px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 50px;
 }
+ 
     .game-cell:hover {
         color: #285943;
         background-color: #AAFCB8;
@@ -175,6 +188,10 @@ game stuff
     color: #D7FFF1;
     background-color: #285943;
     border-color: #77AF9C;
+    font-size: 25px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 50px;
 }
 
 .numpad-cell {
@@ -183,6 +200,7 @@ game stuff
     color: #285943;
     background-color: #AAFCB8;
     border-color: #F6F4F3;
+    text-align: center;
 }
 
 .numpad:hover {
