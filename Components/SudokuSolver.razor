@@ -14,7 +14,12 @@
             <td class="board">
                 @foreach (BoardSlot bs in boardSlots)
                 {
-                    <div class="game-cell-base" @onclick="(e=>SelectSlot(bs))">
+
+                    <div class="@GenerateClassString(bs)" @onclick="(e=>SelectSlot(bs))">
+
+
+                        @*What's inside the slot*@
+
                         @if (bs.Selected)
                         {
                             if (bs.Value != 0)
@@ -73,7 +78,6 @@
 
     BoardSlot[,] boardSlots = new BoardSlot[9, 9];
     BoardSlot currentSlot = new BoardSlot(999, new int[] { 99, 99 }, 0, true); //can be null on page init
-    BoardSlot previousSlot;
 
 
 
@@ -104,6 +108,22 @@
     }
 
 
+    string GenerateClassString(BoardSlot bs) {
+
+        //generate a suitable style class with the remainders of slots coordinate values
+        string s = "game-cell-base";
+        if (bs.Slot[0] % 3 == 0 && bs.Slot[0] != 0) {
+            s = "game-cell-base-0";
+        }
+        if (bs.Slot[1] % 3 == 0 && bs.Slot[1] != 0) {
+            s = "game-cell-base-1";
+        }
+        if (bs.Slot[0] % 3 == 0 && bs.Slot[0] != 0 && bs.Slot[1] % 3 == 0 && bs.Slot[1] != 0) {
+            s = "game-cell-base-2";
+        }
+
+        return s;
+    }
 
 
     Task InitializeBoard()

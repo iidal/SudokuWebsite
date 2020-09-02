@@ -157,14 +157,52 @@ ul {
 game stuff
 */
 
-.game-cell-base {
-    width: 50px;
-    height: 50px;
-    background-color: white;
-    border: 3px solid green;
-
- 
+.board {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    border: 3px solid blue; 
 }
+.game-cell-base {
+    width: 56px;
+    height: 56px;
+    background-color: white;
+    border: 3px solid white;
+    /*border-bottom: 3px solid red;*/
+}
+
+.game-cell-base-0 { /*verticel line, exluding the first one*/
+    width: 56px;
+    height: 56px;
+    background-color: white;
+    border-top: 3px solid white;
+    border-bottom: 3px solid white;
+    border-left: 3px solid blue;
+    border-right: 3px solid white;
+}
+
+.game-cell-base-1 { /*horizontal line, exluding the first one*/
+    width: 56px;
+    height: 56px;
+    background-color: white;
+    border-top: 3px solid blue;
+    border-bottom: 3px solid white;
+    border-left: 3px solid white;
+    border-right: 3px solid white;
+}
+
+.game-cell-base-2 { /*slot that has vertical and horizontal line*/
+    width: 56px;
+    height: 56px;
+    background-color: white;
+    border-top: 3px solid blue;
+    border-bottom: 3px solid white;
+    border-left: 3px solid blue;
+    border-right: 3px solid white;
+}
+
+
+
+
 .game-cell {
     width: 50px;
     height: 50px;
@@ -176,7 +214,6 @@ game stuff
     vertical-align: middle;
     line-height: 50px;
 }
- 
     .game-cell:hover {
         color: #285943;
         background-color: #AAFCB8;
@@ -209,9 +246,5 @@ game stuff
     border-color: #77AF9C;
 }
 
-.board {
-    display: grid;
-    grid-template-columns: repeat(9, 1fr);
 
-}
 
