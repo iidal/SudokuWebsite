@@ -10,50 +10,53 @@ namespace SudokuWebsite.Services
     public class BoardSolver
     {
         public int[,] board = new int[9, 9] {
-         { 0,6,0,4,2,0,1,8,5 },
-         { 0,0,0,0,0,0,3,7,4 },
-         { 4,1,0,3,0,8,0,0,0 },
-         { 0,0,7,8,0,0,0,9,6 },
-         { 3,0,6,7,0,0,0,0,0 },
-         { 0,0,0,0,0,6,0,5,0 },
-         { 0,7,0,9,0,0,5,0,0 },
-         { 0,0,0,2,5,0,0,0,0 },
-         { 0,4,0,0,1,3,8,0,0 },
+             { 5,6,8,0,0,0,0,0,0 },
+             { 3,0,0,0,0,0,0,1,5 },
+             { 0,9,0,0,0,0,6,0,3 },
+             { 0,8,0,0,0,0,1,3,0 },
+             { 0,0,9,0,3,0,0,0,4 },
+             { 7,3,0,0,6,0,5,0,0 },
+             { 4,0,3,8,9,0,0,0,0 },
+             { 0,2,0,0,0,5,0,7,0 },
+             { 0,0,1,0,0,6,0,4,9 },
 
             };
 
 
+
+        //recursively going through the board tryig to add values to it
         public bool SolveBoard()
         {
 
             if (FindEmptySlot() == null)
-            {          //no empty slots left
+            {          //no empty slots left we are done
                 Console.WriteLine("Board completed");
+                PrintBoard();
                 return true;
 
             }
 
 
             //board not comleted lets go
-            int[] slot = FindEmptySlot();
+            int[] slot = FindEmptySlot();   //find an empty slot
 
-            for (int i = 1; i < board.GetLength(0) + 1; i++)
+            for (int i = 1; i < board.GetLength(0) + 1; i++)    
             {
-                if (CheckIfValid(i, slot) == true)
+                if (CheckIfValid(i, slot) == true)  //check if a number is valid for the slot and the board
                 {
-                    board[slot[0], slot[1]] = i;
+                    board[slot[0], slot[1]] = i;    //if yes, add it to the board
 
-                    if (SolveBoard() == true)
+                    if (SolveBoard() == true)   //try to solve the board, try adding some number to the next empty slot
                     {
-                        return true;
+                        return true;    //keep doing that
                     }
                     else
                     {
-                        board[slot[0], slot[1]] = 0;
+                        board[slot[0], slot[1]] = 0;    //oops the value wasnt valid, but lets continue trying with a different one
                     }
                 }
             }
-            return false;
+            return false; //if none of the numbers 1-9 are not be valid for a slot, we will backtrack
 
 
         }
@@ -61,6 +64,7 @@ namespace SudokuWebsite.Services
 
         public void PrintBoard()
         {
+
             for (int i = 0; i < 9; i++)
             {
                 if (i % 3 == 0 && i != 0) { Console.WriteLine("- - - - - - - - - - - - -"); }
@@ -71,7 +75,6 @@ namespace SudokuWebsite.Services
                 }
                 Console.WriteLine();
             }
-
         }
 
         public int[] FindEmptySlot()
@@ -87,7 +90,6 @@ namespace SudokuWebsite.Services
                     {
                         coordinates[0] = i;
                         coordinates[1] = j;
-                        //Console.WriteLine(i.ToString() + " " +  j.ToString());
                         return coordinates;
                     }
                 }
@@ -101,6 +103,7 @@ namespace SudokuWebsite.Services
 
 
             //check row
+
             for (int i = 0; i < board.GetLength(0); i++)
             {
                 if (num == board[pos[0], i] && pos[1] != i)
@@ -122,18 +125,22 @@ namespace SudokuWebsite.Services
             //   1,0 - 1,1 - 1,2
             //   2,0 - 2,1 - 2,2
             //by diving the slot coordinates by 3 and ignoring the remainders
-            int box_x = pos[0] / 3;
-            int box_y = pos[1] / 3;
 
-            //remember you are starting from zero so the third box will be second how hard can it be to remember god damn it
+
+            int box_x = pos[1] / 3;
+            int box_y = pos[0] / 3;     //x value is assigned to y and vice versa because x is rows and is columns, and we are going from left to right then down we need the column value first
+
+
+            //remember you are starting from zero so the third box will be second how hard can it be to remember god damn it 
             // by multiplying the divided coordinates with 3 we get the first x/y coordinate of the box we are in, and adding 3 to that we get the last x/y coordinate
 
-            for (int i = box_x * 3; i < box_x * 3 + 3; i++)
+            for (int i = box_y * 3; i < box_y * 3 + 3; i++)
             {
 
-                for (int j = box_y * 3; j < box_y * 3 + 3; j++)
+                for (int j = box_x * 3; j < box_x * 3 + 3; j++)
                 {
-                    if (num == board[i, j] && pos[0] == i && pos[1] == j)
+
+                    if (num == board[i, j] && pos[0] != i && pos[1] != j)
                     {
                         return false;
                     }
@@ -144,7 +151,6 @@ namespace SudokuWebsite.Services
             return true;
 
         }
-
     }
 
 

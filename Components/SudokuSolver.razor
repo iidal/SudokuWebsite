@@ -65,6 +65,9 @@
 
 
                 </div>
+                <div>
+                    <button class="btn-dark" @onclick="(e => TryToSolve())">Check</button>
+                </div>
             </td>
         </tr>
 
@@ -101,10 +104,18 @@
 
     void ChangeSlotValue(int newVal)
     {
-        board[currentSlot.Slot[0], currentSlot.Slot[1]] = newVal;
+        board[currentSlot.Slot[1], currentSlot.Slot[0]] = newVal;
         currentSlot.Value = newVal;
 
         //boardSlots[currentSlot.Slot[0], currentSlot.Slot[1]] = currentSlot;
+    }
+
+    void TryToSolve() {
+
+        BS.board = (int[,])board.Clone();
+        BS.PrintBoard();
+        Console.WriteLine(BS.SolveBoard());
+
     }
 
 
