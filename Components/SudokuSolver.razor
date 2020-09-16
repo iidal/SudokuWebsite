@@ -54,15 +54,15 @@
             <td>
                 @*actions*@
                 <div>
-                    <button class="numpad-cell" @onclick="(e => ChangeSlotValue(1))">1 </button>
-                    <button class="numpad-cell" @onclick="(e => ChangeSlotValue(2))">2 </button>
-                    <button class="numpad-cell" @onclick="(e => ChangeSlotValue(3))">3 </button>
-                    <button class="numpad-cell" @onclick="(e => ChangeSlotValue(4))">4 </button>
-                    <button class="numpad-cell" @onclick="(e => ChangeSlotValue(5))">5 </button>
-                    <button class="numpad-cell" @onclick="(e => ChangeSlotValue(6))">6 </button>
-                    <button class="numpad-cell" @onclick="(e => ChangeSlotValue(7))">7 </button>
-                    <button class="numpad-cell" @onclick="(e => ChangeSlotValue(8))">8 </button>
-                    <button class="numpad-cell" @onclick="(e => ChangeSlotValue(9))">9 </button>
+                    <button class="numpad-cell" @onclick="(e => ChangeSlotValue(1))">1</button>
+                    <button class="numpad-cell" @onclick="(e => ChangeSlotValue(2))">2</button>
+                    <button class="numpad-cell" @onclick="(e => ChangeSlotValue(3))">3</button>
+                    <button class="numpad-cell" @onclick="(e => ChangeSlotValue(4))">4</button>
+                    <button class="numpad-cell" @onclick="(e => ChangeSlotValue(5))">5</button>
+                    <button class="numpad-cell" @onclick="(e => ChangeSlotValue(6))">6</button>
+                    <button class="numpad-cell" @onclick="(e => ChangeSlotValue(7))">7</button>
+                    <button class="numpad-cell" @onclick="(e => ChangeSlotValue(8))">8</button>
+                    <button class="numpad-cell" @onclick="(e => ChangeSlotValue(9))">9</button>
 
 
                 </div>
@@ -71,6 +71,9 @@
                 </div>
                 <div>
                     <button class="btn-dark" @onclick="(e => TryToSolve())">Check</button>
+                </div>
+                <div>
+                    <button class="btn-dark" @onclick="(e => ClearBoard())">Clear Board</button>
                 </div>
             </td>
         </tr>
@@ -83,8 +86,8 @@
 
 @code {
 
-    BoardSlot[,] boardSlots = new BoardSlot[9, 9];
-    BoardSlot currentSlot = new BoardSlot(999, new int[] { 99, 99 }, 0, true); //can be null on page init
+        BoardSlot[,] boardSlots = new BoardSlot[9, 9];
+        BoardSlot currentSlot = new BoardSlot(999, new int[] { 99, 99 }, 0, false); //cant be null on page init
 
 
 
@@ -108,10 +111,12 @@
 
     void ChangeSlotValue(int newVal)
     {
-        board[currentSlot.Slot[1], currentSlot.Slot[0]] = newVal;
-        currentSlot.Value = newVal;
-
+        if (currentSlot.Selected) { // just to make sure things work
+            board[currentSlot.Slot[1], currentSlot.Slot[0]] = newVal;
+            currentSlot.Value = newVal;
+        }
         //boardSlots[currentSlot.Slot[0], currentSlot.Slot[1]] = currentSlot;
+
     }
 
     void TryToSolve()
@@ -139,7 +144,11 @@
         Console.WriteLine(BS.SolveBoard());
 
     }
-
+    void ClearBoard() { // empty the whole board
+        foreach (BoardSlot bs in boardSlots) {
+            bs.Value = 0;
+        }
+    }
 
     string GenerateClassString(BoardSlot bs)
     {
