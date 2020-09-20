@@ -7,9 +7,9 @@ I started this project for a couple of reasons. First, to get back into web deve
 
 If you want to check out some of the code, here are some shortcuts to the most important ones
 
-[SudokuSolver.razor](SudokuWebsite/Components/Sudokusolver.razor) - handles HTML and logic for the solver, apart for the solver algorithm itself
+[SudokuSolver.razor](Components/Sudokusolver.razor) - handles HTML and logic for the solver, apart for the solver algorithm itself
 
-[SolverManager.cs](SudokuWebsite/Controllers/SolverManager.cs) - the solver algorithm
+[SolverManager.cs](Controllers/SolverManager.cs) - the solver algorithm
 
 
 
