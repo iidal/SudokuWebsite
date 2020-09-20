@@ -12,7 +12,6 @@ If you want to check out some of the code, here are some shortcuts to the most i
 [BoardSolver.cs](Services/BoardSolver.cs) - the solver algorithm
 
 
-Components/SudokuSolver.razor
 
 
 
