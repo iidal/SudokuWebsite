@@ -4,6 +4,8 @@ using System.Linq;
 using System.Security.Policy;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
+using System.Threading;
+using System.Diagnostics;
 
 namespace SudokuWebsite.Services
 {
@@ -22,45 +24,70 @@ namespace SudokuWebsite.Services
 
             };
 
+  
+        Stopwatch sw;
 
-
-        //recursively going through the board tryig to add values to it
-        public bool SolveBoard()
-        {
-
-            if (FindEmptySlot() == null)
-            {          //no empty slots left we are done
-                Console.WriteLine("Board completed");
-                PrintBoard();
-                return true;
-
-            }
-
-
-            //board not comleted lets go
-            int[] slot = FindEmptySlot();   //find an empty slot
-
-            for (int i = 1; i < board.GetLength(0) + 1; i++)    
-            {
-                if (CheckIfValid(i, slot) == true)  //check if a number is valid for the slot and the board
-                {
-                    board[slot[0], slot[1]] = i;    //if yes, add it to the board
-
-                    if (SolveBoard() == true)   //try to solve the board, try adding some number to the next empty slot
-                    {
-                        return true;    //keep doing that
-                    }
-                    else
-                    {
-                        board[slot[0], slot[1]] = 0;    //oops the value wasnt valid, but lets continue trying with a different one
-                    }
-                }
-            }
-            return false; //if none of the numbers 1-9 are not be valid for a slot, we will backtrack
-
+        public bool StartSolving() {
+            TimerCounting(); //start timer
+            return SolveBoard();
 
         }
 
+        void TimerCounting() {
+            sw = new Stopwatch();
+            sw.Start();
+        }
+        //recursively going through the board tryig to add values to it
+        public bool SolveBoard()
+        {
+ 
+                if (FindEmptySlot() == null)
+                {          //no empty slots left we are done
+                    Console.WriteLine("Board completed");
+                    PrintBoard();
+                    return true;
+
+                }
+
+
+                if (sw.ElapsedMilliseconds > 3000)  //keep checking the timer, we dont wanna get caught in an kinda infinite loop
+                {
+                    sw.Stop();
+                    return false; //back it up boys nothing to see here go back  
+
+                }
+
+
+            //board not comlpeted lets go
+            int[] slot = FindEmptySlot();   //find an empty slot
+
+                for (int i = 1; i < board.GetLength(0) + 1; i++)
+                {
+
+
+                    if (CheckIfValid(i, slot) == true)  //check if a number is valid for the slot and the board
+                    {
+                        board[slot[0], slot[1]] = i;    //if yes, add it to the board
+
+                        if (SolveBoard() == true)   //try to solve the board, try adding some number to the next empty slot
+                        {
+                            return true;    //keep doing that
+                        }
+                        else
+                        {
+                            board[slot[0], slot[1]] = 0;    //oops the value wasnt valid, but lets continue trying with a different one
+                            
+                         
+                        }
+                    }
+                }
+                Console.WriteLine(sw.ElapsedMilliseconds);
+
+                return false; //if none of the numbers 1-9 are not be valid for a slot, we will backtrack
+
+
+
+        }
 
         public void PrintBoard()
         {

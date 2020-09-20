@@ -71,6 +71,13 @@
                 </div>
                 <div>
                     <button class="btn-dark" @onclick="(e => TryToSolve())">Check</button>
+
+                    <div>
+                        @if (boardInvalid == true)
+                        {
+                            <p style="color:red"> invalid board input!</p>
+                        }
+                    </div>
                 </div>
                 <div>
                     <button class="btn-dark" @onclick="(e => ClearBoard())">Clear Board</button>
@@ -86,68 +93,123 @@
 
 @code {
 
+        //board is used to send the board to the BoardSolver.cs
+        //boardSlots store more info to be used here
+        //values need to be changed to both
+
         BoardSlot[,] boardSlots = new BoardSlot[9, 9];
         BoardSlot currentSlot = new BoardSlot(999, new int[] { 99, 99 }, 0, false); //cant be null on page init
 
 
+        public int[,] board = new int[9, 9] {
+{ 0,0,0,0,0,0,0,0,0 },
+{ 0,0,0,0,0,0,0,0,0 },
+{ 0,0,0,0,0,0,0,0,0 },
+{ 0,0,0,0,0,0,0,0,0 },
+{ 0,0,0,0,0,0,0,0,0 },
+{ 0,0,0,0,0,0,0,0,0 },
+{ 0,0,0,0,0,0,0,0,0 },
+{ 0,0,0,0,0,0,0,0,0 },
+{ 0,0,0,0,0,0,0,0,0 },
 
-    protected override async Task OnInitializedAsync()
-    {
-
-        await InitializeBoard();
-    }
+            };
 
 
+        bool boardInvalid = false;
 
-    void SelectSlot(BoardSlot bs)
-    {
-
-
-        currentSlot.Selected = false;
-        currentSlot = bs;
-        currentSlot.Selected = true;
-
-    }
-
-    void ChangeSlotValue(int newVal)
-    {
-        if (currentSlot.Selected) { // just to make sure things work
-            board[currentSlot.Slot[1], currentSlot.Slot[0]] = newVal;
-            currentSlot.Value = newVal;
-        }
-        //boardSlots[currentSlot.Slot[0], currentSlot.Slot[1]] = currentSlot;
-
-    }
-
-    void TryToSolve()
-    {
-
-        //solve the board at BoardSolver.cs
-        BS.board = (int[,])board.Clone();
-        BS.PrintBoard();
-
-        if (BS.SolveBoard())
+        protected override async Task OnInitializedAsync()
         {
-            //show the finished board
-            for(int i = 0; i<boardSlots.GetLength(0);i++) {
-                for (int j = 0; j<boardSlots.GetLength(1); j++) {
-                    boardSlots[i, j].Value = BS.board[i, j];
+
+            await InitializeBoard();
+        }
+
+
+
+        void SelectSlot(BoardSlot bs)
+        {
+
+
+            currentSlot.Selected = false;
+            currentSlot = bs;
+            currentSlot.Selected = true;
+
+        }
+
+        void ChangeSlotValue(int newVal)
+        {
+            if (currentSlot.Selected)
+            { // just to make sure things work
+                board[currentSlot.Slot[1], currentSlot.Slot[0]] = newVal;
+                currentSlot.Value = newVal;
+            }
+            //boardSlots[currentSlot.Slot[0], currentSlot.Slot[1]] = currentSlot;
+
+            boardInvalid = false; //hiding the info about invalid board when player clicks on the board (trying to change it)
+        }
+
+        void TryToSolve()
+        {
+
+            //solve the board at BoardSolver.cs
+            BS.board = (int[,])board.Clone();
+            BS.PrintBoard();
+
+            if (BS.StartSolving())
+            {
+
+
+                boardInvalid = false;
+
+                //show the finished board
+                for (int i = 0; i < boardSlots.GetLength(0); i++)
+                {
+                    for (int j = 0; j < boardSlots.GetLength(1); j++)
+                    {
+                        boardSlots[i, j].Value = BS.board[i, j];
+
+                    }
+                }
+
+            }
+            else
+            {
+                //tell that the board can not be solved
+                Console.WriteLine("u fucked up");
+                BS.PrintBoard();
+                boardInvalid = true;
+            }
+
+
+
+
+
+
+            // Console.WriteLine(BS.SolveBoard());
+
+        }
+        void ClearBoard()
+        { // empty the whole board
+            Console.WriteLine("cleared");
+            for (int i = 0; i < boardSlots.GetLength(0); i++)
+            {
+                for (int j = 0; j < boardSlots.GetLength(1); j++)
+                {
+                    boardSlots[i, j].Value = 0;
 
                 }
             }
-        }
-        else
-        {
-            //tell that the board can not be solved
+            for (int i = 0; i < board.GetLength(0); i++)
+            {
+                for (int j = 0; j < board.GetLength(1); j++)
+                {
+                    board[i, j] = 0;
+
+            }
         }
 
-        Console.WriteLine(BS.SolveBoard());
+        BS.board = (int[,])board.Clone();
+        BS.PrintBoard();
 
-    }
-    void ClearBoard() { // empty the whole board
-        foreach (BoardSlot bs in boardSlots) {
-            bs.Value = 0;
-        }
     }
 
     string GenerateClassString(BoardSlot bs)
@@ -189,18 +251,6 @@
 
 
 
-    public int[,] board = new int[9, 9] {
-{ 0,0,0,0,0,0,0,0,0 },
-{ 0,0,0,0,0,0,0,0,0 },
-{ 0,0,0,0,0,0,0,0,0 },
-{ 0,0,0,0,0,0,0,0,0 },
-{ 0,0,0,0,0,0,0,0,0 },
-{ 0,0,0,0,0,0,0,0,0 },
-{ 0,0,0,0,0,0,0,0,0 },
-{ 0,0,0,0,0,0,0,0,0 },
-{ 0,0,0,0,0,0,0,0,0 },
-
-            };
 
 
 
