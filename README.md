@@ -9,7 +9,7 @@ If you want to check out some of the code, here are some shortcuts to the most i
 
 [SudokuSolver.razor](Components/SudokuSolver.razor) - handles HTML and logic for the solver, apart for the solver algorithm itself
 
-[SolverManager.cs](Controllers/SolverManager.cs) - the solver algorithm
+[SolverManager.cs](Services/BoardSolver.cs) - the solver algorithm
 
 
 Components/SudokuSolver.razor
