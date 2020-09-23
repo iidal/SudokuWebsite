@@ -232,8 +232,8 @@ game stuff
 }
 
 .numpad-cell {
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
     color: #285943;
     background-color: #AAFCB8;
     border-color: #F6F4F3;
@@ -244,6 +244,23 @@ game stuff
     color: #285943;
     background-color: #8CD790;
     border-color: #77AF9C;
+}
+
+.numpad-board {
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 3px solid white;
+    grid-gap: 0;
+}
+.buttons-area {
+    padding: 50px;
+    
+}
+.button-row {
+    width: 100%;
+    text-align: center;
+    
 }
 
 

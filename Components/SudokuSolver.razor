@@ -4,11 +4,6 @@
 
 @inject BoardSolver BS;
 
-
-<h3>SudokuSolver</h3>
-
-<h5>@currentSlot.Slot[0].ToString() @currentSlot.Slot[1].ToString()</h5>
-
 <div class="text-center">
     <table>
         <tr>
@@ -51,36 +46,51 @@
                 }
             </td>
 
-            <td>
+            <td class="buttons-area">
                 @*actions*@
                 <div>
-                    <button class="numpad-cell" @onclick="(e => ChangeSlotValue(1))">1</button>
-                    <button class="numpad-cell" @onclick="(e => ChangeSlotValue(2))">2</button>
-                    <button class="numpad-cell" @onclick="(e => ChangeSlotValue(3))">3</button>
-                    <button class="numpad-cell" @onclick="(e => ChangeSlotValue(4))">4</button>
-                    <button class="numpad-cell" @onclick="(e => ChangeSlotValue(5))">5</button>
-                    <button class="numpad-cell" @onclick="(e => ChangeSlotValue(6))">6</button>
-                    <button class="numpad-cell" @onclick="(e => ChangeSlotValue(7))">7</button>
-                    <button class="numpad-cell" @onclick="(e => ChangeSlotValue(8))">8</button>
-                    <button class="numpad-cell" @onclick="(e => ChangeSlotValue(9))">9</button>
+                    <div class="btn-group">
+                        <button class="numpad-cell" @onclick="(e => ChangeSlotValue(1))">1</button>
+                        <button class="numpad-cell" @onclick="(e => ChangeSlotValue(2))">2</button>
+                        <button class="numpad-cell" @onclick="(e => ChangeSlotValue(3))">3</button>
+                    </div>
+                    <br />
+                    <div class="btn-group">
+                        <button class="numpad-cell" @onclick="(e => ChangeSlotValue(4))">4</button>
+                        <button class="numpad-cell" @onclick="(e => ChangeSlotValue(5))">5</button>
+                        <button class="numpad-cell" @onclick="(e => ChangeSlotValue(6))">6</button>
+                    </div>
+                    <br />
+                    <div class="btn-group">
+                        <button class="numpad-cell" @onclick="(e => ChangeSlotValue(7))">7</button>
+                        <button class="numpad-cell" @onclick="(e => ChangeSlotValue(8))">8</button>
+                        <button class="numpad-cell" @onclick="(e => ChangeSlotValue(9))">9</button>
 
-
-                </div>
-                <div>
-                    <button class="btn-dark" @onclick="(e => ChangeSlotValue(0))">Clear Slot</button>
-                </div>
-                <div>
-                    <button class="btn-dark" @onclick="(e => TryToSolve())">Check</button>
-
-                    <div>
-                        @if (boardInvalid == true)
-                        {
-                            <p style="color:red"> invalid board input!</p>
-                        }
                     </div>
                 </div>
+                <br />
+                <br />
+                <br />
+
+
                 <div>
-                    <button class="btn-dark" @onclick="(e => ClearBoard())">Clear Board</button>
+                    <div class="btn-group">
+                        <div>
+                            <button class="btn-dark" @onclick="(e => ChangeSlotValue(0))">Clear Slot</button>
+                        </div>
+                        <div>
+                            <button class="btn-dark" @onclick="(e => TryToSolve())">Check</button>
+                            <div>
+                                @if (boardInvalid == true)
+                                {
+                                    <p style="color:red"> invalid board input!</p>
+                                }
+                            </div>
+                        </div>
+                        <div>
+                            <button class="btn-dark" @onclick="(e => ClearBoard())">Clear Board</button>
+                        </div>
+                    </div>
                 </div>
             </td>
         </tr>
@@ -93,15 +103,15 @@
 
 @code {
 
-        //board is used to send the board to the BoardSolver.cs
-        //boardSlots store more info to be used here
-        //values need to be changed to both
+    //board is used to send the board to the BoardSolver.cs
+    //boardSlots store more info to be used here
+    //values need to be changed to both
 
-        BoardSlot[,] boardSlots = new BoardSlot[9, 9];
-        BoardSlot currentSlot = new BoardSlot(999, new int[] { 99, 99 }, 0, false); //cant be null on page init
+    BoardSlot[,] boardSlots = new BoardSlot[9, 9];
+    BoardSlot currentSlot = new BoardSlot(999, new int[] { 99, 99 }, 0, false); //cant be null on page init
 
 
-        public int[,] board = new int[9, 9] {
+    public int[,] board = new int[9, 9] {
 { 0,0,0,0,0,0,0,0,0 },
 { 0,0,0,0,0,0,0,0,0 },
 { 0,0,0,0,0,0,0,0,0 },
@@ -115,94 +125,94 @@
             };
 
 
-        bool boardInvalid = false;
+    bool boardInvalid = false;
 
-        protected override async Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
+    {
+
+        await InitializeBoard();
+    }
+
+
+
+    void SelectSlot(BoardSlot bs)
+    {
+
+
+        currentSlot.Selected = false;
+        currentSlot = bs;
+        currentSlot.Selected = true;
+
+    }
+
+    void ChangeSlotValue(int newVal)
+    {
+        if (currentSlot.Selected)
+        { // just to make sure things work
+            board[currentSlot.Slot[1], currentSlot.Slot[0]] = newVal;
+            currentSlot.Value = newVal;
+        }
+        //boardSlots[currentSlot.Slot[0], currentSlot.Slot[1]] = currentSlot;
+
+        boardInvalid = false; //hiding the info about invalid board when player clicks on the board (trying to change it)
+    }
+
+    void TryToSolve()
+    {
+
+        //solve the board at BoardSolver.cs
+        BS.board = (int[,])board.Clone();
+        BS.PrintBoard();
+
+        if (BS.StartSolving())
         {
 
-            await InitializeBoard();
-        }
 
+            boardInvalid = false;
 
-
-        void SelectSlot(BoardSlot bs)
-        {
-
-
-            currentSlot.Selected = false;
-            currentSlot = bs;
-            currentSlot.Selected = true;
-
-        }
-
-        void ChangeSlotValue(int newVal)
-        {
-            if (currentSlot.Selected)
-            { // just to make sure things work
-                board[currentSlot.Slot[1], currentSlot.Slot[0]] = newVal;
-                currentSlot.Value = newVal;
-            }
-            //boardSlots[currentSlot.Slot[0], currentSlot.Slot[1]] = currentSlot;
-
-            boardInvalid = false; //hiding the info about invalid board when player clicks on the board (trying to change it)
-        }
-
-        void TryToSolve()
-        {
-
-            //solve the board at BoardSolver.cs
-            BS.board = (int[,])board.Clone();
-            BS.PrintBoard();
-
-            if (BS.StartSolving())
-            {
-
-
-                boardInvalid = false;
-
-                //show the finished board
-                for (int i = 0; i < boardSlots.GetLength(0); i++)
-                {
-                    for (int j = 0; j < boardSlots.GetLength(1); j++)
-                    {
-                        boardSlots[i, j].Value = BS.board[i, j];
-
-                    }
-                }
-
-            }
-            else
-            {
-                //tell that the board can not be solved
-                Console.WriteLine("u fucked up");
-                BS.PrintBoard();
-                boardInvalid = true;
-            }
-
-
-
-
-
-
-            // Console.WriteLine(BS.SolveBoard());
-
-        }
-        void ClearBoard()
-        { // empty the whole board
-            Console.WriteLine("cleared");
+            //show the finished board
             for (int i = 0; i < boardSlots.GetLength(0); i++)
             {
                 for (int j = 0; j < boardSlots.GetLength(1); j++)
                 {
-                    boardSlots[i, j].Value = 0;
+                    boardSlots[i, j].Value = BS.board[i, j];
 
                 }
             }
-            for (int i = 0; i < board.GetLength(0); i++)
+
+        }
+        else
+        {
+            //tell that the board can not be solved
+            Console.WriteLine("u fucked up");
+            BS.PrintBoard();
+            boardInvalid = true;
+        }
+
+
+
+
+
+
+        // Console.WriteLine(BS.SolveBoard());
+
+    }
+    void ClearBoard()
+    { // empty the whole board
+        Console.WriteLine("cleared");
+        for (int i = 0; i < boardSlots.GetLength(0); i++)
+        {
+            for (int j = 0; j < boardSlots.GetLength(1); j++)
             {
-                for (int j = 0; j < board.GetLength(1); j++)
-                {
-                    board[i, j] = 0;
+                boardSlots[i, j].Value = 0;
+
+            }
+        }
+        for (int i = 0; i < board.GetLength(0); i++)
+        {
+            for (int j = 0; j < board.GetLength(1); j++)
+            {
+                board[i, j] = 0;
 
             }
         }
