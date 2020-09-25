@@ -91,6 +91,7 @@
                             <button class="btn-dark" @onclick="(e => ClearBoard())">Clear Board</button>
                         </div>
                     </div>
+                    <button @onclick="(e => PrintBoard())"> print board</button>
                 </div>
             </td>
         </tr>
@@ -133,7 +134,10 @@
         await InitializeBoard();
     }
 
-
+    void PrintBoard() {
+        BS.board = (int[,])board.Clone();
+        BS.PrintBoard();
+    }
 
     void SelectSlot(BoardSlot bs)
     {
@@ -176,6 +180,7 @@
                 for (int j = 0; j < boardSlots.GetLength(1); j++)
                 {
                     boardSlots[i, j].Value = BS.board[i, j];
+                    board[i, j] = BS.board[i, j];
 
                 }
             }
@@ -189,12 +194,6 @@
             boardInvalid = true;
         }
 
-
-
-
-
-
-        // Console.WriteLine(BS.SolveBoard());
 
     }
     void ClearBoard()

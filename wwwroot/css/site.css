@@ -1,10 +1,4 @@
-﻿﻿.checked {
-    color: orange;
-}
-
-.fa-star {
-    cursor: pointer;
-}
+﻿
 
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
@@ -42,7 +36,7 @@ for details on configuring this project to bundle and minify static web assets. 
 }
 
 .card-footer {
-    background: #fbfafd;
+    background: #F4F6FF;
 }
 
 
@@ -56,25 +50,25 @@ a.navbar-brand {
 
 /* Provide sufficient contrast against white background */
 a {
-    color: #0366d6;
+    color: #127681
 }
 
 .btn-primary {
-    color: #fff;
-    background-color: #252152;
-    border-color: #252152;
+    color: #F4F6FF;
+    background-color: #127681;
+    border-color: #127681;
 }
 
     .btn-primary:hover {
-        color: #fff;
-        background-color: #e9a8a6;
-        border-color: #e9a8a6;
+        color: #F4F6FF;
+        background-color: #F3C623;
+        border-color: #F3C623;
     }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
+    color: #F4F6FF;
+    background-color: #127681;
+    border-color: #127681;
 }
 
 /* Sticky footer styles
@@ -90,11 +84,11 @@ html {
 }
 
 .border-top {
-    border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #F4F6FF;
 }
 
 .border-bottom {
-    border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #F4F6FF;
 }
 
 .box-shadow {
@@ -140,17 +134,17 @@ ul {
 }
 /*Backgrounds*/
 .bg-navbar {
-    background: -webkit-linear-gradient(100deg, #eca628 20%, #252152 80%);
-    background: -o-linear-gradient(100deg, #eca628 20%, #252152 80%);
-    background: -moz-linear-gradient(100deg, #eca628 20%, #252152 80%);
-    background: linear-gradient(100deg, #eca628 20%, #252152 80%);
+    background: -webkit-linear-gradient(100deg, #F3C623 20%, #127681 80%);
+    background: -o-linear-gradient(100deg, #F3C623 20%, #127681 80%);
+    background: -moz-linear-gradient(100deg, #F3C623 20%, #127681 80%);
+    background: linear-gradient(100deg, #F3C623 20%, #127681 80%);
 }
 
 .bg-footer {
-    background: -webkit-linear-gradient(110deg, #252152 60%, #e9a8a6 60%);
-    background: -o-linear-gradient(110deg, #252152 60%, #e9a8a6 60%);
-    background: -moz-linear-gradient(110deg, #252152 60%, #e9a8a6 60%);
-    background: linear-gradient(110deg, #252152 60%, #e9a8a6 60%);
+    background: -webkit-linear-gradient(110deg, #F3C623 60%, #127681 60%);
+    background: -o-linear-gradient(110deg, #F3C623 60%, #127681 60%);
+    background: -moz-linear-gradient(110deg, #F3C623 60%, #127681 60%);
+    background: linear-gradient(110deg, #F3C623 60%, #127681 60%);
 }
 
 /*
@@ -160,44 +154,44 @@ game stuff
 .board {
     display: grid;
     grid-template-columns: repeat(9, 1fr);
-    border: 3px solid blue; 
+    border: 3px solid #127681;
 }
 .game-cell-base {
     width: 56px;
     height: 56px;
-    background-color: white;
-    border: 3px solid white;
+    background-color: #F4F6FF;
+    border: 3px solid #F4F6FF;
     /*border-bottom: 3px solid red;*/
 }
 
 .game-cell-base-0 { /*verticel line, exluding the first one*/
     width: 56px;
     height: 56px;
-    background-color: white;
-    border-top: 3px solid white;
-    border-bottom: 3px solid white;
-    border-left: 3px solid blue;
-    border-right: 3px solid white;
+    background-color: #F4F6FF;
+    border-top: 3px solid #F4F6FF;
+    border-bottom: 3px solid #F4F6FF;
+    border-left: 3px solid #127681;
+    border-right: 3px solid #F4F6FF;
 }
 
 .game-cell-base-1 { /*horizontal line, exluding the first one*/
     width: 56px;
     height: 56px;
-    background-color: white;
-    border-top: 3px solid blue;
-    border-bottom: 3px solid white;
-    border-left: 3px solid white;
-    border-right: 3px solid white;
+    background-color: #F4F6FF;
+    border-top: 3px solid #127681;
+    border-bottom: 3px solid #F4F6FF;
+    border-left: 3px solid #F4F6FF;
+    border-right: 3px solid #F4F6FF;
 }
 
 .game-cell-base-2 { /*slot that has vertical and horizontal line*/
     width: 56px;
     height: 56px;
-    background-color: white;
-    border-top: 3px solid blue;
-    border-bottom: 3px solid white;
-    border-left: 3px solid blue;
-    border-right: 3px solid white;
+    background-color: #F4F6FF;
+    border-top: 3px solid #127681;
+    border-bottom: 3px solid #F4F6FF;
+    border-left: 3px solid #127681;
+    border-right: 3px solid #F4F6FF;
 }
 
 
@@ -206,25 +200,25 @@ game stuff
 .game-cell {
     width: 50px;
     height: 50px;
-    color: #285943;
-    background-color: #D7FFF1;
-    border-color: #F6F4F3;
+    color: #1C1E21;
+    background-color: #F3C623;
+    border-color: #F3C623;
     font-size: 20px;
     text-align: center;
     vertical-align: middle;
     line-height: 50px;
 }
     .game-cell:hover {
-        color: #285943;
-        background-color: #AAFCB8;
-        border-color: #77AF9C;
+        color: #1C1E21;
+        background-color: #FEE672;
+        border-color: #FEE672;
     }
 .game-cell-selected {
     width: 50px;
     height: 50px;
-    color: #D7FFF1;
-    background-color: #285943;
-    border-color: #77AF9C;
+    color: #F4F6FF;
+    background-color: #127681;
+    border-color: #127681;
     font-size: 25px;
     text-align: center;
     vertical-align: middle;
@@ -234,17 +228,17 @@ game stuff
 .numpad-cell {
     width: 70px;
     height: 70px;
-    color: #285943;
-    background-color: #AAFCB8;
-    border-color: #F6F4F3;
+    color: #1C1E21;
+    background-color: #F3C623;
+    border-color: #F3C623;
     text-align: center;
 }
-
+/*
 .numpad:hover {
     color: #285943;
     background-color: #8CD790;
     border-color: #77AF9C;
-}
+}*/
 
 .numpad-board {
 
@@ -265,3 +259,18 @@ game stuff
 
 
 
+/*
+
+    yläpalkki 2 väriä       #F3C623  #127681
+    tumma fontti black  #1C1E21
+    vaalea fontti        #F4F6FF
+    slotti yellow       #F3C623
+    valittu slotti blue  #127681
+    rajaviivat blue       #127681
+    vaaleat viivat  #F4F6FF
+    bg: white       #F4F6FF
+
+
+    lighter yellow FEE672
+
+*/

@@ -81,7 +81,7 @@ namespace SudokuWebsite.Services
                         }
                     }
                 }
-                Console.WriteLine(sw.ElapsedMilliseconds);
+                //Console.WriteLine(sw.ElapsedMilliseconds);
 
                 return false; //if none of the numbers 1-9 are not be valid for a slot, we will backtrack
 
