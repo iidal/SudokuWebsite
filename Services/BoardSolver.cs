@@ -24,7 +24,7 @@ namespace SudokuWebsite.Services
 
             };
 
-  
+        BoardChecker BC = new BoardChecker();
         Stopwatch sw;
 
         public bool StartSolving() {
@@ -45,6 +45,13 @@ namespace SudokuWebsite.Services
                 {          //no empty slots left we are done
                     Console.WriteLine("Board completed");
                     PrintBoard();
+
+
+               if (!BC.CheckFullBoard(board)) {    //check if the full board is fine. mostly this needs to be checked in case the user inputs a full board, which the original algorithm does not check
+                   return false;
+                }
+
+                //if the full board is fine:
                     return true;
 
                 }
@@ -124,7 +131,7 @@ namespace SudokuWebsite.Services
             return null;    //no empty slots left
         }
 
-        bool CheckIfValid(int num, int[] pos)
+        public bool CheckIfValid(int num, int[] pos)
         { // number to be checked, where we checking if valid
 
 

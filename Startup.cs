@@ -29,6 +29,7 @@ namespace SudokuWebsite
             services.AddControllers();
             services.AddTransient<JsonFileGameAdService>(); //adding game ads service to other services
             services.AddTransient<BoardSolver>();
+            services.AddTransient<BoardChecker>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
